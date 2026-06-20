@@ -1,0 +1,62 @@
+<article class="property-card">
+
+    <div class="property-image">
+
+        {% if property.featured %}
+            <span class="property-badge">
+                Destaque
+            </span>
+        {% endif %}
+
+        <button class="favorite-btn">
+            ♡
+        </button>
+
+        <img
+            src="{{ property.image.url }}"
+            alt="{{ property.title }}"
+        >
+
+        <span class="property-views">
+            <i class="fa-regular fa-eye"></i> {{ property.views }}
+        </span>
+
+    </div>
+
+    <div class="property-content">
+
+        <div class="property-city">
+            <i class="fa-solid fa-map-pin"></i> {{ property.city }}
+        </div>
+
+        <h3>
+            <a href="">{{ property.title }}</a>
+        </h3>
+
+        <div class="property-price">
+            R$ {{ property.price }}
+        </div>
+
+        <div class="property-details">
+
+            <span>
+                <i class="fa-solid fa-bed"></i> {{ property.bedrooms }}
+            </span>
+
+            <span>
+                <i class="fa-solid fa-shower"></i> {{ property.bathrooms }}
+            </span>
+
+            <span>
+                <i class="fa-solid fa-car-side"></i> {{ property.garages }}
+            </span>
+
+            <span class="property-area">
+                {{ property.area }}m²
+            </span>
+
+        </div>
+
+    </div>
+
+</article>

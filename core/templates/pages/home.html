@@ -1,0 +1,33 @@
+{% include 'partials/head.html' %}
+<body>
+    
+    {% include 'partials/header.html' %}
+
+    {% include 'partials/hero.html' %}
+
+    <section class="featured-properties">
+
+    <div class="section-header">
+        <h2>Imóveis em Destaque</h2>
+
+        <p>
+            Os melhores imóveis do Meio-Oeste Catarinense
+        </p>
+    </div>
+
+    <div class="property-grid">
+
+        {% for property in properties %}
+
+        {% include 'partials/property-card.html' %}
+
+        {% endfor %}
+
+    </div>
+
+</section>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
