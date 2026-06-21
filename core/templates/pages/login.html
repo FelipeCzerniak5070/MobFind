@@ -27,19 +27,56 @@
 
         <div class="auth-tabs">
 
-            <button class="tab active">
+            <a
+                href="?action=login"
+                class="tab {% if action == 'login' %}active{% endif %}"
+            >
                 Entrar
-            </button>
+            </a>
 
-            <button class="tab">
+            <a
+                href="?action=register"
+                class="tab {% if action == 'register' %}active{% endif %}"
+            >
                 Criar Conta
-            </button>
+            </a>
 
         </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="auth-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
         <form method="post">
 
             {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="action"
+                value="{{ action }}"
+            >
+
+            {% if action == 'register' %}
+
+                <div class="form-group">
+
+                    <label>Usuário</label>
+
+                    <input
+                        type="text"
+                        name="uname"
+                        placeholder="Username"
+                        required
+                    >
+
+                </div>
+
+            {% endif %}
 
             <div class="form-group">
 
@@ -47,7 +84,9 @@
 
                 <input
                     type="email"
+                    name="username"
                     placeholder="seu@email.com"
+                    required
                 >
 
             </div>
@@ -58,10 +97,31 @@
 
                 <input
                     type="password"
+                    name="password"
                     placeholder="••••••••"
+                    required
                 >
 
             </div>
+
+            {% if action == 'register' %}
+
+                <div class="form-group">
+
+                    <label>Confirmar Senha</label>
+
+                    <input
+                        type="password"
+                        name="confirm_password"
+                        placeholder="••••••••"
+                        required
+                    >
+
+                </div>
+
+            {% endif %}
+
+            {% if action == 'login' %}
 
             <div class="remember-wrapper">
 
@@ -76,11 +136,17 @@
 
             </div>
 
+            {% endif %}
+
             <button
                 type="submit"
                 class="auth-submit"
             >
-                Entrar na Plataforma
+                {% if action == 'login' %}
+                    Entrar na Plataforma
+                {% else %}
+                    Criar Conta
+                {% endif %}
             </button>
 
         </form>

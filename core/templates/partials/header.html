@@ -8,7 +8,21 @@
                 <span class="title">MobFind</span>
             </a>
         </div>
-        <div class="header-actions">
+
+    <div class="header-actions">
+
+        {% if user.is_authenticated %}
+
+            <span class="user-name">
+                Olá, {{ user.username }}
+            </span>
+
+            <a href="{% url 'core:logout' %}" class="btn btn-outline">
+                Sair
+            </a>
+
+        {% else %}
+
             <a href="{% url 'core:login' 'client' %}" class="btn btn-outline">
                 Sou Cliente
             </a>
@@ -16,6 +30,10 @@
             <a href="{% url 'core:login' 'realtor' %}" class="btn btn-primary">
                 Sou Imobiliária
             </a>
-        </div>
+
+        {% endif %}
+
+    </div>
+
     </div>
 </header>

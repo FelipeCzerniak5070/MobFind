@@ -12,10 +12,11 @@
             ♡
         </button>
         <a href="{% url 'core:property_detail' property.id %}">
-            <img
-            src="{{ property.image.url }}"
-            alt="{{ property.title }}"
-            >
+            {% if property.image %}
+                <img src="{{ property.image.url }}" alt="">
+            {% else %}
+                <img src="https://loremflickr.com/1200/800/architecture,house" alt="">
+            {% endif %}
         </a>
 
         <span class="property-views">

@@ -1,6 +1,7 @@
 from random import randint, choice
 from faker import Faker
 
+
 fake = Faker('pt_BR')
 
 def rand_ratio():
