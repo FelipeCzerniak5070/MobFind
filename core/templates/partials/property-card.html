@@ -11,11 +11,12 @@
         <button class="favorite-btn">
             ♡
         </button>
-
-        <img
+        <a href="{% url 'core:property_detail' property.id %}">
+            <img
             src="{{ property.image.url }}"
             alt="{{ property.title }}"
-        >
+            >
+        </a>
 
         <span class="property-views">
             <i class="fa-regular fa-eye"></i> {{ property.views }}
@@ -30,7 +31,7 @@
         </div>
 
         <h3>
-            <a href="">{{ property.title }}</a>
+            <a href="{% url 'core:property_detail' property.id %}">{{ property.title }}</a>
         </h3>
 
         <div class="property-price">

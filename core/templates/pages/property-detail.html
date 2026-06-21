@@ -1,0 +1,177 @@
+{% include 'partials/head.html' %}
+<body>
+
+    {% include 'partials/header.html' %}
+
+    <main class="property-page">
+
+        <div class="property-container">
+
+            <div class="property-content">
+
+                <div class="property-image">
+                    <img
+                        src="{{ property.image.url }}"
+                        alt="{{ property.title }}"
+                    >
+                </div>
+
+                <div class="property-location">
+                    <i class="fa-solid fa-map-pin"></i> {{ property.city }}
+                </div>
+
+                <h1 class="property-title">
+                    {{ property.title }}
+                </h1>
+
+                <span class="property-type">
+                    {{ property.type }}
+                </span>
+
+                <section class="property-section">
+
+                    <h2>Características</h2>
+
+                    <div class="property-features">
+
+                        <div class="feature-card">
+
+                            <i class="fa-solid fa-bed"></i>
+
+                            <strong>
+                                {{ property.bedrooms }}
+                            </strong>
+
+                            <span>Quartos</span>
+
+                        </div>
+
+                        <div class="feature-card">
+
+                            <i class="fa-solid fa-shower"></i>
+
+                            <strong>
+                                {{ property.bathrooms }}
+                            </strong>
+
+                            <span>Banheiros</span>
+
+                        </div>
+
+                        <div class="feature-card">
+
+                            <i class="fa-solid fa-car-side"></i>
+
+                            <strong>
+                                {{ property.garages }}
+                            </strong>
+
+                            <span>Vagas</span>
+
+                        </div>
+
+                        <div class="feature-card">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
+                                <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
+                                <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
+                                <path d="M10 6h4"></path>
+                                <path d="M10 10h4"></path>
+                                <path d="M10 14h4"></path>
+                                <path d="M10 18h4"></path>
+                            </svg>
+
+                            <strong>
+                                {{ property.area }}
+                            </strong>
+
+                            <span>m²</span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <section class="property-section">
+
+                    <h2>Descrição</h2>
+
+                    <p>
+                        {{ property.description }}
+                    </p>
+
+                </section>
+
+            </div>
+
+            <aside class="property-sidebar">
+
+                <div class="price-card">
+
+                    <span class="price-label">
+                        Valor
+                    </span>
+
+                    <h3>
+                        R$ {{ property.price }}
+                    </h3>
+
+                    <a
+                        href="#"
+                        class="btn btn-primary contact-btn"
+                    >
+                        Entrar em Contato
+                    </a>
+
+                    <a
+                        href="#"
+                        class="btn btn-outline visit-btn"
+                    >
+                        Solicitar Visita
+                    </a>
+
+                    <div class="property-info">
+
+                        <h4>Informações</h4>
+
+                        <div class="info-row">
+                            <span>Código</span>
+                            <strong>#{{ property.id }}</strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>Status</span>
+                            <strong>Disponível</strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>Visualizações</span>
+                            <strong>{{ property.views }}</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+    {% include 'partials/footer.html' %}
+
+</body>
+</html>

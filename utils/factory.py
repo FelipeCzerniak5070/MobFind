@@ -23,6 +23,11 @@ property_titles = [
     'Terreno Residencial',
 ]
 
+type=[
+    'Apartamento',
+    'Casa',
+    'Terreno'
+]
 
 
 def make_property():
@@ -39,7 +44,9 @@ def make_property():
         'featured': choice([True, False]),
         'image': {
             'url': 'https://loremflickr.com/%s/%s/architecture,house' % rand_ratio()
-        }
+        },
+        'type' : fake.random_element(type),
+        'description' : fake.paragraph(nb_sentences=5)
     }
 
 
