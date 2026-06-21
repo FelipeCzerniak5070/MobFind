@@ -1,0 +1,99 @@
+<style>
+    /* Modal */
+
+.modal-overlay {
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-box {
+
+    width: 100%;
+    max-width: 520px;
+
+    background: var(--color-white);
+
+    border-radius: 20px;
+
+    padding: 2rem;
+
+    box-shadow: 0 20px 40px rgba(0,0,0,.15);
+}
+
+.modal-box h3 {
+
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+
+    color: var(--color-gray-9);
+}
+
+.modal-box p {
+
+    color: var(--color-gray-6);
+    line-height: 1.6;
+
+    margin-bottom: 2rem;
+}
+
+.modal-actions {
+
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.modal-actions .btn {
+
+    min-width: 140px;
+}
+</style>
+<div
+    id="login-modal"
+    class="modal-overlay"
+>
+    <div class="modal-box">
+
+        <h3>
+            Login Necessário
+        </h3>
+
+        <p>
+            Para favoritar imóveis, você precisa estar logado.
+            Deseja fazer login agora?
+        </p>
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="btn btn-outline modal-cancel"
+            >
+                Cancelar
+            </button>
+
+            <a
+                href="{% url 'core:login' 'client' %}"
+                class="btn btn-primary"
+            >
+                Fazer Login
+            </a>
+
+        </div>
+
+    </div>
+</div>

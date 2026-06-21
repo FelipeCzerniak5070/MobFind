@@ -805,3 +805,12 @@ header {
 
 }
 
+.fa-regular:hover{
+    color: var(--color-primary);
+}
+
+.fa-solid:hover{
+    color: var(--color-primary);
+}
+
+

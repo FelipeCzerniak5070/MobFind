@@ -1,36 +1,99 @@
-<div class="search-box">
+<form
+    action="{% url 'core:properties' %}"
+    method="get"
+    class="search-box"
+>
 
     <div class="search-grid">
 
         <div class="field">
+
             <label>Cidade</label>
-            <select>
-                <option>Selecione a cidade</option>
+
+            <select name="city">
+
+                <option value="">
+                    Todas as cidades
+                </option>
+
+                {% for city in cities %}
+
+                    <option
+                        value="{{ city.id }}"
+                        {% if selected_city == city.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ city.name }}
+                    </option>
+
+                {% endfor %}
+
             </select>
+
         </div>
 
         <div class="field">
+
             <label>Tipo de Imóvel</label>
-            <select>
-                <option>Tipo do imóvel</option>
+
+            <select name="property_type">
+
+                <option value="">
+                    Todos os tipos
+                </option>
+
+                {% for type in property_types %}
+
+                    <option
+                        value="{{ type.id }}"
+                        {% if selected_property_type == type.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ type.name }}
+                    </option>
+
+                {% endfor %}
+
             </select>
+
         </div>
 
         <div class="field">
+
             <label>Valor Mínimo</label>
-            <input type="text" placeholder="R$ 0">
+
+            <input
+                type="number"
+                name="min_price"
+                value="{{ selected_min_price }}"
+                placeholder="R$ 0"
+            >
+
         </div>
 
         <div class="field">
+
             <label>Valor Máximo</label>
-            <input type="text" placeholder="R$ 999.999">
+
+            <input
+                type="number"
+                name="max_price"
+                value="{{ selected_max_price }}"
+                placeholder="R$ 999999"
+            >
+
         </div>
 
     </div>
 
-    <button class="search-btn">
+    <button
+        type="submit"
+        class="search-btn"
+    >
         <i class="fa-solid fa-magnifying-glass"></i>
         Buscar Imóveis
     </button>
 
-</div>
+</form>

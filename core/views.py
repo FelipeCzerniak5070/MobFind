@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import (
     render,
@@ -7,28 +8,84 @@ from django.shortcuts import (
     get_object_or_404,
 )
 from django.contrib.auth.models import User
-from .models import Profile, Property
+from .models import (
+    Profile,
+    Property,
+    City,
+    PropertyType,
+    Favorite
+    )
 from django.contrib.auth import logout
 
 def home(request):
+
+    properties = Property.objects.filter(
+        is_active=True
+    )
+
+    favorites_ids = []
+
+    if request.user.is_authenticated:
+
+        favorites_ids = list(
+
+            Favorite.objects.filter(
+                user=request.user
+            ).values_list(
+                'property_id',
+                flat=True
+            )
+
+        )
+
     context = {
-        'properties': Property.objects.filter(is_active=True)
+
+        'properties': properties,
+
+        'favorites_ids': favorites_ids,
+
+        'cities': City.objects.all(),
+
+        'property_types': PropertyType.objects.all(),
+
+        'selected_city': '',
+        'selected_property_type': '',
+        'selected_min_price': '',
+        'selected_max_price': '',
     }
 
     return render(
         request,
         'pages/home.html',
-        context
+        context,
     )
     
 def property_detail(request, id):
     property = get_object_or_404(
         Property,
-        pk=id
+        id=id
     )
+    
+    favorites_ids = []
+
+    if request.user.is_authenticated:
+
+        favorites_ids = list(
+
+            Favorite.objects.filter(
+                user=request.user
+            ).values_list(
+                'property_id',
+                flat=True
+            )
+
+        )
+    
 
     context = {
         'property': property,
+        'favorites_ids': favorites_ids,
+        
     }
 
     return render(
@@ -184,3 +241,98 @@ def login_view(request, user_type):
 def logout_view(request):
     logout(request)
     return redirect('core:home')
+
+def properties(request):
+
+    favorites_ids = []
+
+    if request.user.is_authenticated:
+
+        favorites_ids = list(
+
+            Favorite.objects.filter(
+                user=request.user
+            ).values_list(
+                'property_id',
+                flat=True
+            )
+
+        )
+    
+    properties = Property.objects.filter(
+        is_active=True
+    )
+
+    city_id = request.GET.get('city')
+    property_type_id = request.GET.get('property_type')
+    min_price = request.GET.get('min_price')
+    max_price = request.GET.get('max_price')
+
+    if city_id:
+        properties = properties.filter(
+            city_id=city_id
+        )
+
+    if property_type_id:
+        properties = properties.filter(
+            property_type_id=property_type_id
+        )
+
+    if min_price:
+        properties = properties.filter(
+            price__gte=min_price
+        )
+
+    if max_price:
+        properties = properties.filter(
+            price__lte=max_price
+        )
+
+    context = {
+        'properties': properties,
+        'cities': City.objects.all(),
+        'property_types': PropertyType.objects.all(),
+
+        'selected_city': city_id,
+        'selected_property_type': property_type_id,
+        'selected_min_price': min_price,
+        'selected_max_price': max_price,
+        'favorites_ids': favorites_ids,
+    }
+
+    return render(
+        request,
+        'pages/properties.html',
+        context,
+    )
+    
+@login_required
+def toggle_favorite(request, id):
+
+    property = get_object_or_404(
+        Property,
+        id=id,
+    )
+
+    favorite = Favorite.objects.filter(
+        user=request.user,
+        property=property,
+    )
+
+    if favorite.exists():
+
+        favorite.delete()
+
+    else:
+
+        Favorite.objects.create(
+            user=request.user,
+            property=property,
+        )
+
+    return redirect(
+        request.META.get(
+            'HTTP_REFERER',
+            'core:home',
+        )
+    )

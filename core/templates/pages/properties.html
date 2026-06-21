@@ -1,18 +1,26 @@
 {% include 'partials/head.html' %}
+<style>
+    .search-box{
+        margin: var(--spacing-gutter-medium) auto;
+    }
+</style>
 <body>
     
     {% include 'partials/header.html' %}
 
-    {% include 'partials/hero.html' %}
+    {% include 'partials/search-box.html' %}
 
     <section class="featured-properties">
 
-        <div class="section-header">
-            <h2>Imóveis em Destaque</h2>
-            <p>Os melhores imóveis do Meio-Oeste Catarinense</p>
-        </div>
 
         <div class="property-grid">
+            
+            {% if not properties %}
+                <div class="section-header">
+                    <p2>Nenhum imóvel encontrado. Tente alterar os filtros. :)</p2>
+                </div>
+            {% endif %}
+                
 
             {% for property in properties %}
 
@@ -23,8 +31,8 @@
         </div>
 
         <div class="featured-actions">
-            <a href="{% url 'core:properties' %}" class="btn-view-all">
-                Ver Todos os Imóveis
+            <a href="/" class="btn-view-all">
+                Voltar à Página Inicial
             </a>
         </div>
     </section>
@@ -32,8 +40,6 @@
     {% include 'partials/footer.html' %}
 
     {% include 'partials/login-required-modal.html' %}
-
-
 
 </body>
 </html>
